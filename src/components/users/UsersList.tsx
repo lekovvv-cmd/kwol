@@ -13,26 +13,28 @@ export default function UsersList({
   onAddUserClick,
 }: Props) {
   return (
-    <div className="mx-auto w-full max-w-[920px] py-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-semibold">
+    <div className="mx-auto w-full max-w-[920px] px-4 sm:px-8 py-6 sm:py-10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 text-center sm:text-left">
           Зарегистрированные пользователи
         </h2>
-        <div className="flex gap-2">
+
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           <button
             onClick={onAddUserClick}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer"
+            className="flex-1 sm:flex-none px-4 py-3 bg-blue-600 text-white rounded-xl font-medium text-sm hover:bg-blue-700 transition active:scale-[0.98]"
             type="button"
           >
             Добавить пользователя
           </button>
+
           <button
             onClick={() => {
               if (!confirm("Очистить весь список пользователей?")) return;
               localStorage.removeItem(LS_KEY);
               onDeleteUser("__CLEAR_ALL__");
             }}
-            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-md hover:bg-gray-50 transition cursor-pointer"
+            className="flex-1 sm:flex-none px-4 py-3 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl font-medium text-sm hover:bg-gray-200 transition active:scale-[0.98]"
             type="button"
           >
             Очистить всё
@@ -41,30 +43,33 @@ export default function UsersList({
       </div>
 
       {users.length === 0 ? (
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-sm text-center text-gray-600">
           Пользователей пока нет.
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <ul>
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden divide-y divide-gray-100">
+          <ul className="divide-y divide-gray-100">
             {users.map((u) => (
               <li
                 key={u.id}
-                className="flex items-center justify-between px-4 py-3 border-b last:border-b-0"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-6 py-3 hover:bg-gray-50 transition"
               >
-                <div>
-                  <div className="font-medium">{u.email}</div>
-                  <div className="text-sm text-gray-500">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 w-full">
+                  <div className="font-medium text-gray-900 text-sm sm:text-base break-all">
+                    {u.email}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-0">
                     {u.name} • {new Date(u.createdAt).toLocaleString()}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+
+                <div className="flex justify-end sm:justify-start">
                   <button
                     onClick={() => {
                       if (!confirm("Удалить пользователя?")) return;
                       onDeleteUser(u.id);
                     }}
-                    className="px-3 py-1 rounded-md bg-red-50 text-red-600 text-sm hover:bg-red-100 transition cursor-pointer"
+                    className="px-3 py-2 rounded-lg bg-red-50 text-red-600 text-sm font-medium hover:bg-red-100 transition cursor-pointer"
                     type="button"
                   >
                     Удалить

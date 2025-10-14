@@ -7,6 +7,5 @@
 }
 
 body {
-  @apply font-sans antialiased;
+  @apply bg-[#E7EAFA] font-sans antialiased;
 }
-
